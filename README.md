@@ -2,7 +2,19 @@
 > py -3.7 deps.py
 
 # Run main program - Requires python 3.10
-> py -3.10 pcap_analyser.py [pcap_filename] [command] 
+> py -3.10 pcap_analyser.py [pcap_filename] [command]
+
+> py -3.10 pcap_analyser.py example.pcap summarise
+> 
+| Protocol | Number of Packets | First timestamp | Last timestamp | Avg packet length |
+|----------|-------------------|-----------------|----------------|-------------------|
+| TCP | 13708 | 18:52:22.484 | 18:57:20.768 | 666.58 |
+| UDP | 501 | 18:52:39.603 | 18:57:20.989 | 150.41 |
+| ARP | 18 | 18:53:52.941 | 18:57:10.955 | 51.0 |
+| ICMP | 34 | 18:54:19.161 | 18:56:50.385 | 149.35 |
+> py -3.10 pcap_analyser.py example.pcap graph
+[a link](https://github.com/Throupy/PCAP-Analyser/tree/main/pcapanalyser/outputs/example_graph.png)
+
 
 Commands:
 -   Summarise - Create summary of PCAP file including packet types / protocols, average length, first and last timestamps
