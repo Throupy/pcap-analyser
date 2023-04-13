@@ -1,0 +1,222 @@
+INFO - 29-Jun-22 10:51:15 - Successfully read PCAP file - TS = 1305660721.419886
+INFO - 29-Jun-22 10:51:15 - Program Started
+INFO - 29-Jun-22 10:51:15 - Parsing file: evidence-packet-analysis.pcap
+INFO - 29-Jun-22 10:51:15 - Finished parsing. Found 2487 packets
+INFO - 29-Jun-22 10:51:15 - Beginning Analysis for evidence-packet-analysis.pcap
+INFO - 29-Jun-22 10:51:15 - 'summary' command executed
+INFO - 29-Jun-22 10:51:15 - Finding first and last timestamps for protocol: UDP
+INFO - 29-Jun-22 10:51:15 - Finding avg packet length for protocol: UDP
+INFO - 29-Jun-22 10:51:15 - Finding first and last timestamps for protocol: TCP
+INFO - 29-Jun-22 10:51:15 - Finding avg packet length for protocol: TCP
+INFO - 29-Jun-22 10:51:15 - Finding first and last timestamps for protocol: IGMP
+INFO - 29-Jun-22 10:51:15 - Finding avg packet length for protocol: IGMP
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
++----------+-------------------+-----------------+----------------+-------------------+
+| Protocol | Number of Packets | First timestamp | Last timestamp | Avg packet length |
++----------+-------------------+-----------------+----------------+-------------------+
+|   UDP    |        481        |   20:32:01.419  |  20:35:47.318  |       111.85      |
+|   TCP    |        2000       |   20:32:05.792  |  20:35:30.537  |       727.39      |
+|   IGMP   |         6         |   20:32:05.799  |  20:32:06.646  |        60.0       |
++----------+-------------------+-----------------+----------------+-------------------+
+INFO - 29-Jun-22 10:51:15 - 'image_uris' command executed
+INFO - 29-Jun-22 10:51:15 - Finding image URIS with extensions ['jpg', 'jpeg', 'gif', 'png', 'ico']
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
++-----------------------------------------------+
+|                      URI                      |
++-----------------------------------------------+
+|                  /favicon.ico                 |
+| /__utm.gif?utmwv=4.9.2&utms=1&utmn=1088074970 |
+|      /3000209/728x90_Endframe_Revised.jpg     |
+|                /sd/logo_w_l.png               |
+|     /sd/classic/img/glyphish-icons-16.png     |
+|            /sd/topics/google_64.png           |
+|           /sd/topics/internet_64.png          |
+|            /sd/topics/chrome_64.png           |
+|            /sd/topics/movies_64.png           |
+|          /sd/topics/government_64.png         |
+|           /sd/topics/android_64.png           |
+|            /sd/topics/space_64.png            |
+|           /sd/topics/privacy_64.png           |
+|           /sd/topics/facebook_64.png          |
+|          /sd/topics/education_64.png          |
+|            /sd/topics/court_64.png            |
+|             /sd/topics/gnu_64.png             |
+|         /sd/classic/img/twitter_24.png        |
+|        /sd/classic/img/facebook_24.png        |
+|           /sd/classic/img/rss_24.png          |
+|              /viewad/817-grey.gif             |
+|             /1251053/1x1white.gif             |
+|      /sd/firehose/020/924/002-1-thumb.png     |
+|      /sd/firehose/020/823/032-1-thumb.png     |
+|      /sd/firehose/020/734/942-1-thumb.png     |
+|   /1live/leadgen/SD_RelatedResources_Top.gif  |
+|     /1live/leadgen/SD_wrapper7b_bottom.png    |
+|              /pagead/images/i.png             |
+|     /pagead/abglogo/abg-en-100c-ffffff.png    |
+|            /adimages/Global/83.png            |
+|    /adimages/Advertiser/1132968072/187.jpg    |
+|    /adimages/Advertiser/1132966215/176.jpg    |
++-----------------------------------------------+
+INFO - 29-Jun-22 10:51:15 - 'get_filenames_from_uris' command executed
+INFO - 29-Jun-22 10:51:15 - Finding image URIS with extensions ['jpg', 'jpeg', 'gif', 'png', 'ico']
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
++-----------------------------+
+|           Filename          |
++-----------------------------+
+|         favicon.ico         |
+|          __utm.gif          |
+| 728x90_Endframe_Revised.jpg |
+|         logo_w_l.png        |
+|    glyphish-icons-16.png    |
+|        google_64.png        |
+|       internet_64.png       |
+|        chrome_64.png        |
+|        movies_64.png        |
+|      government_64.png      |
+|        android_64.png       |
+|         space_64.png        |
+|        privacy_64.png       |
+|       facebook_64.png       |
+|       education_64.png      |
+|         court_64.png        |
+|          gnu_64.png         |
+|        twitter_24.png       |
+|       facebook_24.png       |
+|          rss_24.png         |
+|         817-grey.gif        |
+|         1x1white.gif        |
+|       002-1-thumb.png       |
+|       032-1-thumb.png       |
+|       942-1-thumb.png       |
+| SD_RelatedResources_Top.gif |
+|   SD_wrapper7b_bottom.png   |
+|            i.png            |
+|    abg-en-100c-ffffff.png   |
+|            83.png           |
+|           187.jpg           |
+|           176.jpg           |
++-----------------------------+
+INFO - 29-Jun-22 10:51:15 - 'smtp_emails' command executed
+INFO - 29-Jun-22 10:51:15 - Finding emails via SMTP on ports: [25, 465, 2525, 587]
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
++-----------------------+---------+
+|        Address        | To/From |
++-----------------------+---------+
+|  sneakyg33ky@aol.com  |   From  |
+| d4rktangent@gmail.com |    To   |
+| mistersekritx@aol.com |    To   |
+|   inter0pt1c@aol.com  |    To   |
++-----------------------+---------+
+INFO - 29-Jun-22 10:51:15 - 'conversations' command executed
+INFO - 29-Jun-22 10:51:15 - Getting conversations
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
++----------------+-----------------+--------------+
+|     Sender     |    Recipient    | Packets Sent |
++----------------+-----------------+--------------+
+| 184.30.179.172 |  192.168.30.108 |     327      |
+| 192.168.30.108 |  205.188.58.10  |     265      |
+| 192.168.30.108 |   64.12.168.40  |     251      |
+| 192.168.30.108 |  184.30.179.172 |     191      |
+| 205.188.58.10  |  192.168.30.108 |     166      |
+|  64.12.168.40  |  192.168.30.108 |     154      |
+| 192.168.30.30  |   10.30.30.20   |     130      |
+| 192.168.30.108 |   10.30.30.20   |     126      |
+|  10.30.30.20   |  192.168.30.108 |     126      |
+| 216.34.181.45  |  192.168.30.108 |      70      |
+| 74.125.224.122 |  192.168.30.108 |      63      |
+| 74.125.224.123 |  192.168.30.108 |      47      |
+| 192.168.30.101 |  192.168.30.255 |      45      |
+| 192.168.30.102 |  192.168.30.255 |      45      |
+| 74.125.224.60  |  192.168.30.108 |      44      |
+|  10.30.30.20   |    172.30.1.5   |      38      |
+|   172.30.1.5   |   10.30.30.20   |      38      |
+| 192.168.30.108 |  216.34.181.45  |      37      |
+| 192.168.30.108 |  192.168.30.255 |      36      |
+| 192.168.30.108 |  74.125.224.123 |      35      |
+| 192.168.30.108 |  74.125.224.122 |      35      |
+| 192.168.30.108 |  74.125.224.60  |      33      |
+| 174.137.114.45 |  192.168.30.108 |      33      |
+| 192.168.30.108 |  174.137.114.45 |      26      |
+| 216.137.45.111 |  192.168.30.108 |      20      |
+| 192.168.30.108 |  216.137.45.111 |      16      |
+| 74.125.224.105 |  192.168.30.108 |      12      |
+| 74.125.224.52  |  192.168.30.108 |      10      |
+| 192.168.30.108 |  74.125.224.105 |      9       |
+| 174.137.114.42 |  192.168.30.108 |      8       |
+| 192.168.30.108 |  174.137.114.42 |      7       |
+| 192.168.30.108 |    224.0.0.22   |      6       |
+| 192.168.30.106 |  192.168.30.108 |      6       |
+| 192.168.30.108 |  209.107.213.96 |      5       |
+|  10.30.30.20   |   10.30.30.255  |      4       |
+| 209.107.213.96 |  192.168.30.108 |      4       |
+|  10.30.30.20   |  192.168.30.30  |      4       |
+|    0.0.0.0     | 255.255.255.255 |      3       |
+|  10.30.30.20   |   91.189.94.4   |      2       |
+|  91.189.94.4   |   10.30.30.20   |      2       |
+| 192.168.30.10  |  192.168.30.108 |      1       |
+| 192.168.30.108 |    64.4.10.44   |      1       |
+| 192.168.30.101 |  192.168.30.10  |      1       |
+| 192.168.30.10  |  192.168.30.101 |      1       |
+| 192.168.30.106 |  192.168.30.10  |      1       |
+| 192.168.30.10  |  192.168.30.106 |      1       |
+| 192.168.30.102 |  192.168.30.10  |      1       |
+| 192.168.30.10  |  192.168.30.102 |      1       |
++----------------+-----------------+--------------+
+INFO - 29-Jun-22 10:51:15 - 'avg_packet_length' command executed
+INFO - 29-Jun-22 10:51:15 - Finding avg packet length for protocol: UDP
+INFO - 29-Jun-22 10:51:15 - Finding avg packet length for protocol: TCP
+INFO - 29-Jun-22 10:51:15 - Finding avg packet length for protocol: IGMP
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
++----------+------------+
+| Protocol | Avg Length |
++----------+------------+
+|   UDP    |   111.85   |
+|   TCP    |   727.39   |
+|   IGMP   |    60.0    |
++----------+------------+
+INFO - 29-Jun-22 10:51:15 - 'first_last_timestamps' command executed
+INFO - 29-Jun-22 10:51:15 - Finding first and last timestamps for protocol: UDP
+INFO - 29-Jun-22 10:51:15 - Finding first and last timestamps for protocol: TCP
+INFO - 29-Jun-22 10:51:15 - Finding first and last timestamps for protocol: IGMP
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
++----------+-----------------+----------------+
+| Protocol | First Timestamp | Last Timestamp |
++----------+-----------------+----------------+
+|   UDP    |   20:32:01.419  |  20:35:47.318  |
+|   TCP    |   20:32:05.792  |  20:35:30.537  |
+|   IGMP   |   20:32:05.799  |  20:32:06.646  |
++----------+-----------------+----------------+
+INFO - 29-Jun-22 10:51:15 - 'create_kml' command executed
+INFO - 29-Jun-22 10:51:15 - Generating KML file
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+ERROR - 29-Jun-22 10:51:15 - KML - Found unknown address (probably private)
+INFO - 29-Jun-22 10:51:15 - Writing results to pcapanalyser/outputs/results.txt
+KML file saved to pcapanalyser/outputs/ip_activity.kml
+INFO - 29-Jun-22 10:51:15 - 'draw_graph' command executed
+INFO - 29-Jun-22 10:51:15 - Generating graph data and plotting
+ERROR - 13-Apr-23 17:22:44 - samples/arp.pcap does not exist
+INFO - 13-Apr-23 17:22:54 - Successfully read PCAP file - TS = 1096984865.275344
+INFO - 13-Apr-23 17:22:57 - Successfully read PCAP file - TS = 1096984865.275344
+INFO - 13-Apr-23 17:22:57 - Program Started
+INFO - 13-Apr-23 17:22:57 - Parsing file: pcapanalyser/samples/arp.pcap
+INFO - 13-Apr-23 17:22:57 - Finished parsing. Found 622 packets
+INFO - 13-Apr-23 17:22:57 - Beginning Analysis for pcapanalyser/samples/arp.pcap
+INFO - 13-Apr-23 17:22:57 - 'summary' command executed
+INFO - 13-Apr-23 17:22:57 - Finding first and last timestamps for protocol: ARP
+INFO - 13-Apr-23 17:22:57 - Finding avg packet length for protocol: ARP
+INFO - 13-Apr-23 17:22:57 - Writing results to pcapanalyser/outputs/results.txt
++----------+-------------------+-----------------+----------------+-------------------+
+| Protocol | Number of Packets | First timestamp | Last timestamp | Avg packet length |
++----------+-------------------+-----------------+----------------+-------------------+
+|   ARP    |        622        |   15:01:05.275  |  15:01:34.244  |        60.0       |
++----------+-------------------+-----------------+----------------+-------------------+
