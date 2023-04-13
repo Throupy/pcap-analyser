@@ -12,8 +12,6 @@
 | UDP | 501 | 18:52:39.603 | 18:57:20.989 | 150.41 |
 | ARP | 18 | 18:53:52.941 | 18:57:10.955 | 51.0 |
 | ICMP | 34 | 18:54:19.161 | 18:56:50.385 | 149.35 |
-> py -3.10 pcap_analyser.py example.pcap graph
-![alt text](application\pcapanalyser\outputs\example_graph.png)
 
 
 Commands:
