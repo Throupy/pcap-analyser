@@ -13,7 +13,7 @@
 | ARP | 18 | 18:53:52.941 | 18:57:10.955 | 51.0 |
 | ICMP | 34 | 18:54:19.161 | 18:56:50.385 | 149.35 |
 > py -3.10 pcap_analyser.py example.pcap graph
-![alt text](https://github.com/Throupy/PCAP-Analyser/tree/main/pcapanalyser/outputs/example_graph.png)
+![alt text](https://github.com/Throupy/PCAP-Analyser/tree/main/pcapanalyser/outputs/example_graph.png?raw=true)
 
 
 Commands:
