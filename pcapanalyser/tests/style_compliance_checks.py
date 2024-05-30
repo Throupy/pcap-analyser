@@ -1,4 +1,5 @@
 """Script to automate compliance checks."""
+
 import unittest
 import subprocess
 import pathlib
@@ -57,15 +58,14 @@ class TestCodeCompliance(unittest.TestCase):
         """Test pycodestyle compliance."""
         style = pycodestyle.StyleGuide(quiet=True)
         result = style.check_files(self.all_py_files)
-        self.assertEqual(result.total_errors, 0,
-                         self.error_string % 'pycodestyle')
+        self.assertEqual(result.total_errors, 0, self.error_string % "pycodestyle")
 
     def test_pylint_compliance(self) -> None:
         """Test pylint compliance."""
         output = CustomPylintReporter()
         Run(self.all_py_files, reporter=TextReporter(output), exit=False)
         result = output.get_score()
-        self.assertEqual(result, 10.0, self.error_string % 'pylint')
+        self.assertEqual(result, 10.0, self.error_string % "pylint")
 
     def test_mypy_compliance(self) -> None:
         """Test mypy compliance.
@@ -74,23 +74,32 @@ class TestCodeCompliance(unittest.TestCase):
         meaning that lazy subprocess Popen is required
         to mimic running mypy from the command line.
         """
-        with subprocess.Popen(["py", "-3.10", "-m",
-                               "mypy", "--ignore-missing-imports",
-                               "--disallow-untyped-defs",
-                               "--disable-error-code", "attr-defined",
-                               "pcap_analyser.py"],
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE,
-                              shell=True, encoding="utf-8") as proc:
+        with subprocess.Popen(
+            [
+                "py",
+                "-3.10",
+                "-m",
+                "mypy",
+                "--ignore-missing-imports",
+                "--disallow-untyped-defs",
+                "--disable-error-code",
+                "attr-defined",
+                "pcap_analyser.py",
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
+            encoding="utf-8",
+        ) as proc:
             stdout, _ = proc.communicate()
             errors = int(stdout.count("error"))
-            self.assertEqual(errors, 0, self.error_string % 'mypy')
+            self.assertEqual(errors, 0, self.error_string % "mypy")
 
     def test_pydocstyle_compliance(self) -> None:
         """Test pydocstyle compliance."""
         result = list(pydocstyle.check(self.all_py_files))
         errors = len(result)
-        self.assertEqual(errors, 0, self.error_string % 'pydocstyle')
+        self.assertEqual(errors, 0, self.error_string % "pydocstyle")
 
 
 unittest.main()

@@ -6,6 +6,7 @@ contains logic for execution of program commands, and formats
 the results for output. This object calls functions from
 internal sripts such as parsing and graphing.
 """
+
 import os
 
 from prettytable import PrettyTable
@@ -31,7 +32,7 @@ FUNCTION_MAP = {
     "timestamps": "first_last_timestamps",
     "kml": "create_kml",
     "graph": "draw_graph",
-    "all": "execute_all_commands"
+    "all": "execute_all_commands",
 }
 
 
@@ -48,20 +49,21 @@ class CaptureAnalyser:
         """Print summary of analysis."""
         logger.info("'summary' command executed")
         output = PrettyTable()
-        output.field_names = ["Protocol", "Number of Packets",
-                              "First timestamp", "Last timestamp",
-                              "Avg packet length"]
+        output.field_names = [
+            "Protocol",
+            "Number of Packets",
+            "First timestamp",
+            "Last timestamp",
+            "Avg packet length",
+        ]
         total_packets = 0
         for protocol in self.packets["count"]:
             protocol_id = parsing.protocol_ids[protocol]
             number_of_packets = self.packets["count"][protocol]
             total_packets += number_of_packets
-            first, last = parsing.get_first_last_timestamps(
-                self.packets, protocol_id)
-            avg_length = parsing.get_avg_packet_length(
-                self.packets, protocol_id)
-            output.add_row([protocol, number_of_packets,
-                            first, last, avg_length])
+            first, last = parsing.get_first_last_timestamps(self.packets, protocol_id)
+            avg_length = parsing.get_avg_packet_length(self.packets, protocol_id)
+            output.add_row([protocol, number_of_packets, first, last, avg_length])
         if len(output.rows) < 1:
             output = "No Supported Packets Detected"
         write_command_output(str(output), writefile)
@@ -114,9 +116,9 @@ class CaptureAnalyser:
         conversations = parsing.get_conversations(self.packets)
         output = PrettyTable()
         output.field_names = ["Sender", "Recipient", "Packets Sent"]
-        for key in sorted(conversations,
-                          key=lambda k: len(conversations[k]),
-                          reverse=True):
+        for key in sorted(
+            conversations, key=lambda k: len(conversations[k]), reverse=True
+        ):
             output.add_row([key[0], key[1], len(conversations[key])])
         write_command_output(str(output), writefile)
         return output
@@ -127,8 +129,7 @@ class CaptureAnalyser:
         output = PrettyTable()
         output.field_names = ["Protocol", "Avg Length"]
         for protocol_id in parsing.protocol_ids.values():
-            avg_length = parsing.get_avg_packet_length(self.packets,
-                                                       protocol_id)
+            avg_length = parsing.get_avg_packet_length(self.packets, protocol_id)
             protocol = key_from_val(parsing.protocol_ids, protocol_id)
             output.add_row([protocol, avg_length])
         write_command_output(str(output), writefile)
@@ -140,21 +141,22 @@ class CaptureAnalyser:
         output = PrettyTable()
         output.field_names = ["Protocol", "First Timestamp", "Last Timestamp"]
         for protocol_id in parsing.protocol_ids.values():
-            first, last = parsing.get_first_last_timestamps(self.packets,
-                                                            protocol_id)
+            first, last = parsing.get_first_last_timestamps(self.packets, protocol_id)
             protocol = key_from_val(parsing.protocol_ids, protocol_id)
             output.add_row([protocol, first, last])
         write_command_output(str(output), writefile)
         return output
 
-    def draw_graph(self, writefile: str,
-                   interval: float | None = GRAPH_INTERVAL) -> str:
+    def draw_graph(
+        self, writefile: str, interval: float | None = GRAPH_INTERVAL
+    ) -> str:
         """Use Grapher class to plot packet data."""
         logger.info("'draw_graph' command executed")
         directory, _ = os.path.split(writefile)
         writefile = f"{directory}/graph.png"
-        grapher = Grapher(self.packets, self.write_filename,
-                          interval=interval, writefile=writefile)
+        grapher = Grapher(
+            self.packets, self.write_filename, interval=interval, writefile=writefile
+        )
         grapher.plot()
         return "Graphing Success"
 

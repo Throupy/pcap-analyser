@@ -1,13 +1,13 @@
 # suppress PEP8 import errors due to PATH settings
 # pylint: disable=E0401
 """Methods to handle the parsing of the pcap file."""
+
 import re
 from datetime import datetime
 
 import dpkt
 
-from pcapanalyser.utils import (get_src_dst_address, create_logger,
-                                key_from_val)
+from pcapanalyser.utils import get_src_dst_address, create_logger, key_from_val
 from pcapanalyser.types import Conversations, Emails, Packets
 
 protocol_ids = {}
@@ -43,8 +43,7 @@ def parse_packets(filename: str) -> Packets:
             else:
                 try:
                     # Try and get the network layer name
-                    network_layer_name = ethernet.get_type(
-                        ethernet.type).__name__
+                    network_layer_name = ethernet.get_type(ethernet.type).__name__
                 except KeyError:
                     # If this fails, just call it unknown
                     logger.error("Unknown or unsupported packet detected")
@@ -54,21 +53,24 @@ def parse_packets(filename: str) -> Packets:
                 if network_layer_name not in packets["count"]:
                     packets["count"][network_layer_name] = 0
                 packets["count"][network_layer_name] += 1
-        logger.info("Finished parsing. Found %s packets",
-                    (sum(packets['count'].values())))
+        logger.info(
+            "Finished parsing. Found %s packets", (sum(packets["count"].values()))
+        )
     return packets
 
 
-def get_first_last_timestamps(packets: Packets,
-                              protocol: int) -> tuple[datetime, datetime] | \
-                                                tuple[str, str]:
+def get_first_last_timestamps(
+    packets: Packets, protocol: int
+) -> tuple[datetime, datetime] | tuple[str, str]:
     """Get, format and return first and last timestamps.
 
     Arguments
     protocol -- the desired protocol
     """
-    logger.info("""Finding first and last timestamps for protocol: %s""",
-                (key_from_val(protocol_ids, protocol)))
+    logger.info(
+        """Finding first and last timestamps for protocol: %s""",
+        (key_from_val(protocol_ids, protocol)),
+    )
     try:
         timestamps = []
         # Loop through packets, extract ethernet and IP objects
@@ -86,10 +88,8 @@ def get_first_last_timestamps(packets: Packets,
             except KeyError:
                 continue
         # Select and format the first and last timestamps
-        first = datetime.fromtimestamp(min(timestamps)) \
-            .strftime("%H:%M:%S.%f")[:-3]
-        last = datetime.fromtimestamp(max(timestamps)) \
-            .strftime("%H:%M:%S.%f")[:-3]
+        first = datetime.fromtimestamp(min(timestamps)).strftime("%H:%M:%S.%f")[:-3]
+        last = datetime.fromtimestamp(max(timestamps)).strftime("%H:%M:%S.%f")[:-3]
     except ValueError:
         # This will be hit when there's an unkown protocol (EG ARP)
         return ("Unable to Calculate", "Unable to Calculate")
@@ -102,8 +102,10 @@ def get_avg_packet_length(packets: Packets, protocol: int) -> float | str:
     Arguments
     protocol -- the desired protocol
     """
-    logger.info("Finding avg packet length for protocol: %s",
-                (key_from_val(protocol_ids, protocol)))
+    logger.info(
+        "Finding avg packet length for protocol: %s",
+        (key_from_val(protocol_ids, protocol)),
+    )
     total_length = 0
     number_of_packets = 0
     # Loop through packets, extract ethernet and IP objects
@@ -140,8 +142,7 @@ def get_filenames_from_uris(packets: Packets) -> list[str]:
     return filenames
 
 
-def get_image_uris(packets: Packets,
-                   file_extensions: list = None) -> list[str]:
+def get_image_uris(packets: Packets, file_extensions: list = None) -> list[str]:
     """Find all of the URIs / filenames of image files from the pcap.
 
     Arguments
@@ -149,8 +150,7 @@ def get_image_uris(packets: Packets,
     """
     if not file_extensions:
         file_extensions = ["jpg", "jpeg", "gif", "png", "ico"]
-    logger.info("Finding image URIS with extensions %s",
-                (list(file_extensions)))
+    logger.info("Finding image URIS with extensions %s", (list(file_extensions)))
     uris = []
     for _, pkt in packets["raw"].items():
         ethernet = dpkt.ethernet.Ethernet(pkt)
@@ -161,8 +161,7 @@ def get_image_uris(packets: Packets,
                     http = dpkt.http.Request(ip_object.data.data)
                     uri_lower = http.uri.lower()  # Performance
                     # If URI contains extension
-                    if any(extension in uri_lower for extension
-                            in file_extensions):
+                    if any(extension in uri_lower for extension in file_extensions):
                         uris.append(http.uri[0:45])
                 except (dpkt.dpkt.NeedData, dpkt.dpkt.UnpackError):
                     # Not valid HTTP request, leave it, move onto the next.
@@ -178,8 +177,7 @@ def get_smtp_emails(packets: Packets, smtp_ports: list = None) -> Emails:
     """
     if not smtp_ports:
         smtp_ports = [25, 465, 2525, 587]
-    logger.info("Finding emails via SMTP on ports: %s",
-                (list(smtp_ports)))
+    logger.info("Finding emails via SMTP on ports: %s", (list(smtp_ports)))
     emails: Emails = {"From": [], "To": []}
     to_pattern = r"TO: <[\w\._-]+@[\w\._-]+.[\w\._-]+>"
     from_pattern = r"FROM: <[\w\._-]+@[\w\._-]+.[\w\._-]+>"
@@ -193,13 +191,12 @@ def get_smtp_emails(packets: Packets, smtp_ports: list = None) -> Emails:
                 if src_port in smtp_ports or dst_port in smtp_ports:
                     data = str(ip_object.data.data)
                     emails["From"] += [
-                        x[:-1].split("<")[1] for x in re.findall(
-                            from_pattern, str(data)
-                        )]
+                        x[:-1].split("<")[1]
+                        for x in re.findall(from_pattern, str(data))
+                    ]
                     emails["To"] += [
-                        x[:-1].split("<")[1] for x in re.findall(
-                            to_pattern, str(data)
-                        )]
+                        x[:-1].split("<")[1] for x in re.findall(to_pattern, str(data))
+                    ]
     # Convert to set and back to list, as to remove any non-unique emails
     # TypedDict in utils.py, this wont change
     emails["From"] = list(set(emails["From"]))

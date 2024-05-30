@@ -1,6 +1,7 @@
 # suppress PEP8 import errors due to PATH settings
 # pylint: disable=E0401
 """Output functionality."""
+
 import simplekml
 import dpkt
 import geoip2.database
@@ -33,17 +34,20 @@ def generate_kml(packets: Packets) -> str:
         for address in dst_addresses:
             try:
                 response = reader.city(address)
-                country = response.country.name if response.country.name \
-                    is not None else "N/A"
-                city = response.city.name if response.city.name \
-                    is not None else "N/A"
-                kml.newpoint(name=address,
-                             coords=[(response.location.longitude,
-                                      response.location.latitude)],
-                             description=f"""Packets Sent : \
+                country = (
+                    response.country.name
+                    if response.country.name is not None
+                    else "N/A"
+                )
+                city = response.city.name if response.city.name is not None else "N/A"
+                kml.newpoint(
+                    name=address,
+                    coords=[(response.location.longitude, response.location.latitude)],
+                    description=f"""Packets Sent : \
                                 {packets_sent_to_address[address]}
                                 Country : {country}
-                                City : {city}""")
+                                City : {city}""",
+                )
             except geoip2.errors.AddressNotFoundError:
                 # Address unknown (probably means it's private), just pass
                 logger.error("KML - Found unknown address (probably private)")
@@ -51,9 +55,9 @@ def generate_kml(packets: Packets) -> str:
     return "KML file saved to pcapanalyser/outputs/ip_activity.kml"
 
 
-def write_command_output(output: str,
-                         writefile: str = "pcapanalyser/outputs/results.txt"
-                         ) -> None:
+def write_command_output(
+    output: str, writefile: str = "pcapanalyser/outputs/results.txt"
+) -> None:
     """Write specified output to a given output file."""
     try:
         logger.info("Writing results to %s", writefile)

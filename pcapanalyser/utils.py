@@ -2,6 +2,7 @@
 # pylint: disable=E0401
 # pylint: disable=R1732
 """Utility methods for packet analyser application."""
+
 import logging
 from typing import Any
 from argparse import ArgumentParser
@@ -17,9 +18,12 @@ def key_from_val(d_dic: dict, value: Any) -> Any:
 
 def create_logger() -> logging.Logger:
     """Create and return a logger object."""
-    logging.basicConfig(format="%(levelname)s - %(asctime)s - %(message)s",
-                        datefmt="%d-%b-%y %H:%M:%S", filemode="a",
-                        filename="pcapanalyser/outputs/results.txt")
+    logging.basicConfig(
+        format="%(levelname)s - %(asctime)s - %(message)s",
+        datefmt="%d-%b-%y %H:%M:%S",
+        filemode="a",
+        filename="pcapanalyser/outputs/results.txt",
+    )
     _logger = logging.getLogger(__name__)
     _logger.setLevel(logging.INFO)
     return _logger
@@ -27,7 +31,7 @@ def create_logger() -> logging.Logger:
 
 def hex_to_ipv4(ip_hex: str) -> str:
     """Convert a string of hex characters into an ipv4 address."""
-    hex_octets = [ip_hex[i:i+2] for i in range(0, len(ip_hex), 2)]
+    hex_octets = [ip_hex[i : i + 2] for i in range(0, len(ip_hex), 2)]
     # ['c0', 'a8'...]
     decimal_octets = [int(x, 16) for x in hex_octets]
     # int(x, 16) = base16 = hex = [192, 168...]
@@ -66,8 +70,7 @@ def validate_file_format(filename: str) -> bool:
     try:
         with open(filename, "rb") as pcap_file:
             for timestamp, _ in dpkt.pcap.Reader(pcap_file):
-                logger.info("Successfully read PCAP file - TS = %s",
-                            timestamp)
+                logger.info("Successfully read PCAP file - TS = %s", timestamp)
                 return True
     except ValueError:
         logger.error("Invalid PCAP file supplied")
@@ -75,8 +78,7 @@ def validate_file_format(filename: str) -> bool:
     return False
 
 
-def is_valid_pcap_file(filename: str,
-                       parser: ArgumentParser) -> str | None:
+def is_valid_pcap_file(filename: str, parser: ArgumentParser) -> str | None:
     """Check if file exists, and is a valid pcap file."""
     if not validate_filename(filename):
         parser.error(f"The file {filename} does not exist")

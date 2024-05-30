@@ -1,4 +1,5 @@
 """Custom Types for type annotations."""
+
 from typing import TypeAlias, TypedDict
 
 import dpkt

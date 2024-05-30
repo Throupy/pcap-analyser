@@ -2,6 +2,7 @@
 # pylint: disable=E0401
 # pylint: disable=E1101
 """Create a dependency diagram for the packet analyser."""
+
 import os
 
 import pyan
@@ -12,16 +13,22 @@ OUT = "pcapanalyser/outputs"
 def generate_dependency_graph() -> None:
     """Create module dependency graph for pcapanalyser package."""
     # Recursively get all python project files.
-    all_py_files = [os.path.join(dp, f) for dp, dn,
-                    filenames in os.walk(os.getcwd()) for f in
-                    filenames if os.path.splitext(f)[1] == ".py"]
+    all_py_files = [
+        os.path.join(dp, f)
+        for dp, dn, filenames in os.walk(os.getcwd())
+        for f in filenames
+        if os.path.splitext(f)[1] == ".py"
+    ]
     for file in all_py_files:
         print(f"Analysing {file} to create dependency diagram")
     dependency_graph = pyan.create_callgraph(
-                             filenames=all_py_files,
-                             colored=True, grouped=True,
-                             draw_uses=True, draw_defines=False,
-                             annotated=True)
+        filenames=all_py_files,
+        colored=True,
+        grouped=True,
+        draw_uses=True,
+        draw_defines=False,
+        annotated=True,
+    )
 
     with open(f"{OUT}/dependencies.dot", "w", encoding="utf-8") as dot_file:
         dot_file.write(dependency_graph)

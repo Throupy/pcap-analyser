@@ -4,6 +4,7 @@
 
 contains logic to plot packet data over time
 """
+
 import statistics
 from datetime import datetime
 import warnings
@@ -22,8 +23,13 @@ warnings.filterwarnings("ignore")
 class Grapher:
     """Class to handle all graphical functionality."""
 
-    def __init__(self, packets: Packets, write_filename: str,
-                 interval: float = None, writefile: str = None) -> None:
+    def __init__(
+        self,
+        packets: Packets,
+        write_filename: str,
+        interval: float = None,
+        writefile: str = None,
+    ) -> None:
         """Initialise function for Grapher."""
         self.packets = packets
         if not interval:
@@ -51,11 +57,12 @@ class Grapher:
             logger.error("Graph - Error calculating threshold")
             return False
 
-    def increment_interval(self,
-                           current_interval: tuple) -> tuple[float, float]:
+    def increment_interval(self, current_interval: tuple) -> tuple[float, float]:
         """Increment the timestamps by the defined interval."""
-        next_interval = (current_interval[0]+self.interval,
-                         current_interval[1]+self.interval)
+        next_interval = (
+            current_interval[0] + self.interval,
+            current_interval[1] + self.interval,
+        )
         return next_interval
 
     def get_starting_ending_timestamp(self) -> tuple[float, float]:
@@ -81,7 +88,7 @@ class Grapher:
         """
         logger.info("Generating graph data and plotting")
         timestamp = self.get_starting_ending_timestamp()[0]
-        current_interval = (timestamp, timestamp+self.interval)
+        current_interval = (timestamp, timestamp + self.interval)
         packets = {current_interval: 0}
         for timestamp, _ in self.packets["raw"].items():
             # If new interval, increment timestamps, create new entry in dict
@@ -90,8 +97,7 @@ class Grapher:
                 packets.setdefault(current_interval, 0)
             # Increment number of packets sent in dict
             packets[(current_interval[0], current_interval[1])] += 1
-        times = [datetime.fromtimestamp(ts[0]).strftime(
-                "%H:%M:%S") for ts in packets]
+        times = [datetime.fromtimestamp(ts[0]).strftime("%H:%M:%S") for ts in packets]
         number_of_packets = list(packets.values())
         return (times, number_of_packets)
 
@@ -111,29 +117,34 @@ class Grapher:
         if threshold:
             figure = plt.figure(f"{self.write_filename} Analysis")
             axis = figure.add_subplot()
-            axis.set(title=f"""Number Of Packets Sent Over Time
+            axis.set(
+                title=f"""Number Of Packets Sent Over Time
                             \n{self.write_filename}""",
-                     xlabel="Interval starting time",
-                     ylabel="Packets Sent")
+                xlabel="Interval starting time",
+                ylabel="Packets Sent",
+            )
             axis.plot(times, number_of_packets, marker="o")
             axis.set_axisbelow(True)
             axis.yaxis.grid(color="gray", linestyle="dashed")
             axis.xaxis.grid(color="gray", linestyle="dashed")
             plt.xticks(rotation=90)
             plt.tick_params(axis="x", which="major", labelsize="small")
-            axis.axhline(y=threshold, color="red",
-                         label=f"Heavy Traffic Threshold {threshold:.2f}")
-            threshold_label = mpatches.Patch(
+            axis.axhline(
+                y=threshold,
                 color="red",
-                label=f"Heavy traffic threshold: {threshold:.2f}")
+                label=f"Heavy Traffic Threshold {threshold:.2f}",
+            )
+            threshold_label = mpatches.Patch(
+                color="red", label=f"Heavy traffic threshold: {threshold:.2f}"
+            )
             interval_label = mpatches.Patch(
-                color="blue",
-                label=f"Interval: {self.interval:.2f}s")
+                color="blue", label=f"Interval: {self.interval:.2f}s"
+            )
             axis.legend(handles=[interval_label, threshold_label])
             change_interval_location = plt.axes([0.15, 0.02, 0.8, 0.04])
-            change_interval = TextBox(change_interval_location,
-                                      "Interval",
-                                      initial=round(self.interval, 2))
+            change_interval = TextBox(
+                change_interval_location, "Interval", initial=round(self.interval, 2)
+            )
             change_interval.on_submit(self.change_interval)
             plt.tight_layout()
             if self.writefile:
@@ -145,9 +156,10 @@ class Grapher:
         else:
             figure = plt.figure(f"{self.write_filename} Analysis Failure")
             axis = figure.add_subplot()
-            axis.set(title="""ERROR IN ANALYSIS - \
-                     TIME PERIOD OF PCAP FILE TOO SHORT""")
-            axis.axhline(y=5, color="red",
-                         label="ERROR - COULD NOT CALCULATE")
+            axis.set(
+                title="""ERROR IN ANALYSIS - \
+                     TIME PERIOD OF PCAP FILE TOO SHORT"""
+            )
+            axis.axhline(y=5, color="red", label="ERROR - COULD NOT CALCULATE")
             plt.legend()
             plt.show(block=False)

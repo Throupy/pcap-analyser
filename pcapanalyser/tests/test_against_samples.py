@@ -1,4 +1,5 @@
 """Script for testing the PCAP analysis program against many files."""
+
 import subprocess
 import pathlib
 import contextlib
@@ -33,8 +34,7 @@ def main() -> None:
     with change_working_directory(path):
         for file in files:
             print(f"[*] Testing {file}")
-            subprocess.run(f"py -3.10 pcap_analyser.py {file} summarise",
-                           check=False)
+            subprocess.run(f"py -3.10 pcap_analyser.py {file} summarise", check=False)
 
 
 if __name__ == "__main__":
