@@ -10,6 +10,9 @@ __pycache__/
 # ruff formatter
 .ruff_cache/
 
+# output
+results.txt
+
 # C extensions
 *.so
 
